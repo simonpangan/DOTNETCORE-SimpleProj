@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimonProj.Data;
+using SimonProj.DTO;
 using SimonProj.Models;
 
 namespace SimonProj.Controllers
@@ -51,15 +52,25 @@ namespace SimonProj.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,LastName,FirstName,JoinedDate")] Teacher teacher)
+        public async Task<IActionResult> Create(
+            [Bind("LastName,FirstName,JoinedDate")]
+            TeacherDTO teacherDto
+        )
         {
             if (ModelState.IsValid)
             {
-                _context.Add(teacher);
+                _context.Add( new Teacher
+                {
+                    LastName = teacherDto.LastName,
+                    FirstName = teacherDto.FirstName,
+                    JoinedDate = teacherDto.JoinedDate
+                });
+
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(teacher);
+
+            return View(teacherDto);
         }
 
         // GET: Teachers/Edit/5
