@@ -1,0 +1,64 @@
+{
+  "format": 1,
+  "restore": {
+    "H:\\RiderProjects\\SimonProj\\SimonProj\\SimonProj.csproj": {}
+  },
+  "projects": {
+    "H:\\RiderProjects\\SimonProj\\SimonProj\\SimonProj.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "H:\\RiderProjects\\SimonProj\\SimonProj\\SimonProj.csproj",
+        "projectName": "SimonProj",
+        "projectPath": "H:\\RiderProjects\\SimonProj\\SimonProj\\SimonProj.csproj",
+        "packagesPath": "C:\\Users\\simon\\.nuget\\packages\\",
+        "outputPath": "H:\\RiderProjects\\SimonProj\\SimonProj\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\simon\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
