@@ -15,15 +15,13 @@ namespace SimonProj.Controllers
             _context = context;
         }
 
-        // GET: Teachers
         public async Task<IActionResult> Index()
         {
-              return _context.Teachers != null ? 
-                          View(await _context.Teachers.ToListAsync()) :
-                          Problem("Entity set 'ProjContext.Teachers'  is null.");
+            return _context.Teachers != null
+                ? View(await _context.Teachers.ToListAsync())
+                : Problem("Entity set 'ProjContext.Teachers'  is null.");
         }
 
-        // GET: Teachers/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Teachers == null)
@@ -41,15 +39,11 @@ namespace SimonProj.Controllers
             return View(teacher);
         }
 
-        // GET: Teachers/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Teachers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -59,7 +53,7 @@ namespace SimonProj.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add( new Teacher
+                _context.Add(new Teacher
                 {
                     LastName = teacherDto.LastName,
                     FirstName = teacherDto.FirstName,
@@ -73,7 +67,6 @@ namespace SimonProj.Controllers
             return View(teacherDto);
         }
 
-        // GET: Teachers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Teachers == null)
@@ -86,17 +79,19 @@ namespace SimonProj.Controllers
             {
                 return NotFound();
             }
+
             return View(teacher);
         }
 
-        // POST: Teachers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,LastName,FirstName,JoinedDate")] Teacher teacher)
+        public async Task<IActionResult> Edit(
+            int id,
+            [Bind("ID,LastName,FirstName,JoinedDate")]
+            TeacherDTO teacherDto
+        )
         {
-            if (id != teacher.ID)
+            if (id != teacherDto.ID)
             {
                 return NotFound();
             }
@@ -105,12 +100,18 @@ namespace SimonProj.Controllers
             {
                 try
                 {
-                    _context.Update(teacher);
+                    _context.Update(new Teacher
+                    {
+                        ID = teacherDto.ID,
+                        LastName = teacherDto.LastName,
+                        FirstName = teacherDto.FirstName,
+                        JoinedDate = teacherDto.JoinedDate
+                    });
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TeacherExists(teacher.ID))
+                    if (!TeacherExists(teacherDto.ID))
                     {
                         return NotFound();
                     }
@@ -119,12 +120,13 @@ namespace SimonProj.Controllers
                         throw;
                     }
                 }
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(teacher);
+
+            return View(teacherDto);
         }
 
-        // GET: Teachers/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Teachers == null)
@@ -142,7 +144,6 @@ namespace SimonProj.Controllers
             return View(teacher);
         }
 
-        // POST: Teachers/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -151,19 +152,20 @@ namespace SimonProj.Controllers
             {
                 return Problem("Entity set 'ProjContext.Teachers'  is null.");
             }
+
             var teacher = await _context.Teachers.FindAsync(id);
             if (teacher != null)
             {
                 _context.Teachers.Remove(teacher);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool TeacherExists(int id)
         {
-          return (_context.Teachers?.Any(e => e.ID == id)).GetValueOrDefault();
+            return (_context.Teachers?.Any(e => e.ID == id)).GetValueOrDefault();
         }
     }
 }

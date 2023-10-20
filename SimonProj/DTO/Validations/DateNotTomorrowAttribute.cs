@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace SimonProj.Models.Validations;
+namespace SimonProj.DTO.Validations;
 
 public class DateNotTomorrowAttribute : ValidationAttribute
 {
