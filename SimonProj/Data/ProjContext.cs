@@ -10,9 +10,11 @@ public class ProjContext : DbContext
     }
 
     public DbSet<Teacher> Teachers { get; set; }
+    public DbSet<Student> Students { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Teacher>().ToTable("Teacher");
+        modelBuilder.Entity<Student>().ToTable("Student");
     }
 }

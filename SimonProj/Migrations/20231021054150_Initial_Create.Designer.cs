@@ -12,8 +12,8 @@ using SimonProj.Data;
 namespace SimonProj.Migrations
 {
     [DbContext(typeof(ProjContext))]
-    [Migration("20231020153222_Updated")]
-    partial class Updated
+    [Migration("20231021054150_Initial_Create")]
+    partial class Initial_Create
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,27 @@ namespace SimonProj.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("SimonProj.Models.Student", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Student", (string)null);
+                });
 
             modelBuilder.Entity("SimonProj.Models.Teacher", b =>
                 {
@@ -37,7 +58,7 @@ namespace SimonProj.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("JoinedDate")
+                    b.Property<DateTime?>("JoinedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")

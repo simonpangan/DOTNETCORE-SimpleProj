@@ -22,6 +22,27 @@ namespace SimonProj.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("SimonProj.Models.Student", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Student", (string)null);
+                });
+
             modelBuilder.Entity("SimonProj.Models.Teacher", b =>
                 {
                     b.Property<int>("ID")
@@ -34,7 +55,7 @@ namespace SimonProj.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("JoinedDate")
+                    b.Property<DateTime?>("JoinedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
