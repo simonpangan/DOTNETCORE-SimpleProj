@@ -1,10 +1,17 @@
-namespace SimonProj.Models;
+    using System.ComponentModel.DataAnnotations.Schema;
 
-public class Student
-{
-    public int ID { get; set; }
+    namespace SimonProj.Models;
 
-    public string LastName { get; set; }
+    public class Student
+    {
+        public int ID { get; set; }
 
-    public string FirstName { get; set; }
-}
+        public string LastName { get; set; }
+
+        public string FirstName { get; set; }
+
+        [ForeignKey("Teacher")]
+        public int TeacherId { get; set; }
+
+        public Teacher? Teacher { get; set; }
+    }

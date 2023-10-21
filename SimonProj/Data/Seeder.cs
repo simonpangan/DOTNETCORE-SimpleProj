@@ -23,9 +23,6 @@ public class Seeder
 
             Seeder seed = new Seeder();
             seed.SeedTeachers(seed, context);
-            seed.SeedStudents(seed, context);
-
-            context.SaveChanges();
         }
     }
 
@@ -38,6 +35,17 @@ public class Seeder
 
         var teachersList = seed.GenerateFakeTeachers(30);
         context.Teachers.AddRange(teachersList);
+        context.SaveChanges(); // Save the teachers to generate TeacherId values
+
+        var studentList = seed.GenerateFakeStudents(50);
+        foreach (var student in studentList)
+        {
+            var randomTeacher = teachersList[new Random().Next(teachersList.Count)];
+            student.Teacher = randomTeacher;
+        }
+
+        context.Students.AddRange(studentList);
+        context.SaveChanges();
     }
 
     private List<Teacher> GenerateFakeTeachers(int count = 10)
@@ -48,17 +56,6 @@ public class Seeder
             .RuleFor(t => t.JoinedDate, f => f.Date.Past(5));
 
         return faker.Generate(count);
-    }
-
-    private void SeedStudents(Seeder seed, ProjContext context)
-    {
-        if (context.Students.Any())
-        {
-            return;
-        }
-
-        var studentList = seed.GenerateFakeStudents(30);
-        context.Students.AddRange(studentList);
     }
 
     private List<Student> GenerateFakeStudents(int count = 10)

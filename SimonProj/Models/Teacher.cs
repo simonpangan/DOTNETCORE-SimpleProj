@@ -9,4 +9,6 @@ public class Teacher
     public string FirstName { get; set; }
 
     public DateTime? JoinedDate { get; set; }
+
+    public ICollection<Student> Students { get; set; }
 }
